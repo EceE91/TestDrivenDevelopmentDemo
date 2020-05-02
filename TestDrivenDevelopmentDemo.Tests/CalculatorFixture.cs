@@ -31,8 +31,7 @@ namespace TestDrivenDevelopmentDemo.Tests
             int expected = 5;
 
             //act
-            var sut = new Calculator();
-            int actual = sut.Add(value1, value2);
+            int actual = SystemUnderTest.Add(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");
@@ -47,8 +46,7 @@ namespace TestDrivenDevelopmentDemo.Tests
             int expected = 4;
 
             //act
-            var sut = new Calculator();
-            int actual = sut.Subtract(value1, value2);
+            int actual = SystemUnderTest.Subtract(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");
