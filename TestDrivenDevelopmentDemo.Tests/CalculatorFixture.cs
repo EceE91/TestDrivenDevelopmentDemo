@@ -17,7 +17,7 @@ namespace TestDrivenDevelopmentDemo.Tests
         public Calculator SystemUnderTest {
             get {
                 if (_systemUnderTest == null)
-                    return new Calculator();
+                    _systemUnderTest = new Calculator();
 
                 return _systemUnderTest;
             }

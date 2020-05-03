@@ -1,0 +1,56 @@
+﻿@model TestDrivenDevelopmentDemo.WebUI.Models.CalculatorViewModel
+
+@{ 
+    ViewData["Title"] = "Online Calculator";
+}
+
+<h4>Online Calculator</h4>
+<hr/>
+@using (Html.BeginForm("Calculate", "Calculator")){ 
+    
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="View">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Value1" class="control-label"></label>
+                    <input asp-for="Value1" class="form-control" />
+                    <span asp-validation-for="Value1" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Operator" class="control-label"></label>
+                    <select asp-for="Operator" asp-items="Model.Operators" class="form-control" />
+                    <span asp-validation-for="Operator" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Value2" class="control-label"></label>
+                    <input asp-for="Value2" class="form-control" />
+                    <span asp-validation-for="Value2" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Calculate" class="btn btn-default" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ResultValue" class="control-label"></label>
+                    @Html.DisplayFor(x => x.ResultValue)
+                    <span asp-validation-for="ResultValue" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Message" class="control-label"></label>
+                    @Html.DisplayFor(x => x.Message)
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IsResultValid" class="control-label"></label>:@Model.IsResultValid
+                </div>
+            </form>
+        </div>
+    </div>
+}
