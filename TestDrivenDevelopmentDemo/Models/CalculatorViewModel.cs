@@ -24,6 +24,9 @@ namespace TestDrivenDevelopmentDemo.WebUI.Models
         [Display(Name = "Operator")]
         public string Operator { get; set; }
 
+        [Display(Name = "Message")]
+        public string Message { get; set; } 
+
         [Display(Name = "Is Result Valid")]
         public bool IsResultValid { get; set; }
     }
