@@ -10,3 +10,7 @@
      steps:
        - checkout
        - run: dotnet build
+       
+test:
+  override:
+    - dotnet run
