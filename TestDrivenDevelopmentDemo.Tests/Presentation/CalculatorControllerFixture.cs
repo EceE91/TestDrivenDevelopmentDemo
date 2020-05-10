@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TestDrivenDevelopmentDemo.Api;
 using TestDrivenDevelopmentDemo.WebUI.Controllers;
 using TestDrivenDevelopmentDemo.WebUI.Models;
 
@@ -12,6 +13,18 @@ namespace TestDrivenDevelopmentDemo.Tests.Presentation
     [TestClass]
     public class CalculatorControllerFixture
     {
+        private ICalculatorService _CalculatorService;
+
+        public ICalculatorService CalculatorServiceInstance
+        {
+            get
+            {
+                if (_CalculatorService == null)
+                    _CalculatorService = new Calculator();
+                return _CalculatorService;
+            }
+        }
+
         [TestInitialize]
         public void OnTestInitialize()
         {
@@ -24,7 +37,7 @@ namespace TestDrivenDevelopmentDemo.Tests.Presentation
             get
             {
                 if (_systemUnderTest == null)
-                    _systemUnderTest = new CalculatorController();
+                    _systemUnderTest = new CalculatorController(CalculatorServiceInstance);
 
                 return _systemUnderTest;
             }

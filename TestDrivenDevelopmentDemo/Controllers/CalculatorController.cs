@@ -9,9 +9,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TestDrivenDevelopmentDemo.Api;
 
 namespace TestDrivenDevelopmentDemo.WebUI.Controllers
-{
+{    
     public class CalculatorController : Controller
     {
+        private ICalculatorService _CalculatorService;
+
+        public CalculatorController(ICalculatorService service)
+        {
+            if (service == null)
+            {
+                throw new ArgumentNullException("service", "argument cannot be null");
+            }
+            _CalculatorService = service;
+        }
+
         public IActionResult Index()
         {
             var model = new CalculatorViewModel();
@@ -46,15 +57,68 @@ namespace TestDrivenDevelopmentDemo.WebUI.Controllers
             if(operation == CalculatorConstants.OperatorAdd)
             {
                 //perform add
-                model.ResultValue = new Calculator().Add(model.Value1, model.Value2);
+                model.ResultValue = _CalculatorService.Add(model.Value1, model.Value2);
                 model.IsResultValid = true;
                 model.Message = CalculatorConstants.Message_Success;
+                PopulateOperators(model,operation);
                 return View("Index",model);
+            }else if (operation == CalculatorConstants.OperatorSubtract)
+            {
+                //perform subtract
+                model.ResultValue = _CalculatorService.Subtract(model.Value1, model.Value2);
+                model.IsResultValid = true;
+                model.Message = CalculatorConstants.Message_Success;
+                PopulateOperators(model, operation);
+                return View("Index", model);
+            }else if (operation == CalculatorConstants.OperatorMultiply)
+            {
+                //perform multiply
+                model.ResultValue = _CalculatorService.Multiply(model.Value1, model.Value2);
+                model.IsResultValid = true;
+                model.Message = CalculatorConstants.Message_Success;
+                PopulateOperators(model, operation);
+                return View("Index", model);
+            }else if (operation == CalculatorConstants.OperatorDivide)
+            {
+                if (model.Value2 == 0)
+                {
+                    model.ResultValue = 0;
+                    model.Message = CalculatorConstants.Message_CantDivideByZero;
+                    model.IsResultValid = false;
+                }
+                else
+                {
+                    //perform divide
+                    model.ResultValue = _CalculatorService.Divide(model.Value1, model.Value2);
+                    model.IsResultValid = true;
+                    model.Message = CalculatorConstants.Message_Success;
+                }
+                PopulateOperators(model, operation);
+                return View("Index", model);
             }
             else
             {
                 return BadRequest();
             }
+        }
+
+        private void PopulateOperators(CalculatorViewModel model, string operation)
+        {
+            model.Operator = operation;
+            var operators = GetOperators();
+            foreach (var item in operators)
+            {
+                item.Selected = false;
+            }
+
+            var selectThisOperator = (from temp in operators
+                                      where temp.Text == operation
+                                      select temp).FirstOrDefault();
+
+            if (selectThisOperator == null)
+                selectThisOperator.Selected = true;
+
+            model.Operators = operators;
         }
     }
 }

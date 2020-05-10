@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label asp-for="Operator" class="control-label"></label>
-                    <select asp-for="Operator" asp-items="Model.Operators" class="form-control" />
+                    <select asp-for="Operator" asp-items="Model.Operators" class="form-control"></select>
                     <span asp-validation-for="Operator" class="text-danger"></span>
                 </div>
 
@@ -33,17 +33,17 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Calculate" class="btn btn-default" />
+                    <input type="submit" value="Calculate" class="btn-default" />
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="ResultValue" class="control-label"></label>
+                    <label asp-for="ResultValue" class="control-label"></label>:
                     @Html.DisplayFor(x => x.ResultValue)
                     <span asp-validation-for="ResultValue" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Message" class="control-label"></label>
+                    <label asp-for="Message" class="control-label"></label>:
                     @Html.DisplayFor(x => x.Message)
                 </div>
 

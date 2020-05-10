@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TestDrivenDevelopmentDemo.Api
 {
-    public class Calculator
+    public class Calculator: ICalculatorService
     {
         public double Add(double value1, double value2)
         {
