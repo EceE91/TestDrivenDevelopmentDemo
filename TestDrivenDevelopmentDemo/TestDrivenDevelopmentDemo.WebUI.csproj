@@ -6,4 +6,8 @@
 	<DebugType>Full</DebugType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestDrivenDevelopmentDemo.Api\TestDrivenDevelopmentDemo.Api.csproj" />
+  </ItemGroup>
+
 </Project>

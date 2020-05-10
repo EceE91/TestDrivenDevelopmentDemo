@@ -27,12 +27,12 @@ namespace TestDrivenDevelopmentDemo.Tests
         public void Add()
         {
             //arrange
-            int value1 = 2;
-            int value2 = 3;
-            int expected = 5;
+            double value1 = 2;
+            double value2 = 3;
+            double expected = 5;
 
             //act
-            int actual = SystemUnderTest.Add(value1, value2);
+            double actual = SystemUnderTest.Add(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");
@@ -42,12 +42,12 @@ namespace TestDrivenDevelopmentDemo.Tests
         public void Subtract()
         {
             //arrange
-            int value1 = 7;
-            int value2 = 3;
-            int expected = 4;
+            double value1 = 7;
+            double value2 = 3;
+            double expected = 4;
 
             //act
-            int actual = SystemUnderTest.Subtract(value1, value2);
+            double actual = SystemUnderTest.Subtract(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");
@@ -57,12 +57,12 @@ namespace TestDrivenDevelopmentDemo.Tests
         public void Multiply()
         {
             //arrange
-            int value1 = 7;
-            int value2 = 3;
-            int expected = 21;
+            double value1 = 7;
+            double value2 = 3;
+            double expected = 21;
 
             //act
-            int actual = SystemUnderTest.Multiply(value1, value2);
+            double actual = SystemUnderTest.Multiply(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");
@@ -72,12 +72,12 @@ namespace TestDrivenDevelopmentDemo.Tests
         public void Divide()
         {
             //arrange
-            int value1 = 30;
-            int value2 = 3;
-            int expected = 10;
+            double value1 = 30;
+            double value2 = 3;
+            double expected = 10;
 
             //act
-            int actual = SystemUnderTest.Divide(value1, value2);
+            double actual = SystemUnderTest.Divide(value1, value2);
 
             //assert
             Assert.AreEqual(expected, actual, "Wrong result");

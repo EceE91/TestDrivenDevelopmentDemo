@@ -117,5 +117,56 @@ namespace TestDrivenDevelopmentDemo.Tests.Presentation
         }
 
 
+        [TestMethod]
+        public void CalculatorController_Calculate_Add()
+        {
+            //arrange
+            var model = TestUtility.GetModel<CalculatorViewModel>(SystemUnderTest.Index());
+            double value1 = 2;
+            double value2 = 3;
+            double expected = 5;
+
+            model.Value1 = value1;
+            model.Value2 = value2;
+            model.Operator = CalculatorConstants.OperatorAdd;
+
+            //act
+            var actual = TestUtility.GetModel<CalculatorViewModel>(SystemUnderTest.Calculate(model));
+
+            //assert
+            Assert.IsTrue(model.IsResultValid, "Result should be valid");
+            Assert.AreEqual<double>(expected, actual.ResultValue, "Result was wrong");
+            Assert.AreEqual<string>(CalculatorConstants.Message_Success, actual.Message, "Message was wrong");
+
+            AssertOperatorsAndSelectedOperator(model, CalculatorConstants.OperatorAdd);
+        }
+
+        private void AssertOperatorsAndSelectedOperator(CalculatorViewModel model, string expectedSelectedOpeator)
+        {
+            Assert.IsNotNull(model.Operators, "Operators collection was null");
+
+            var actual = model.Operators.Select(x => x.Text).ToList();
+
+            var expected = new List<string>();
+            expected.Add(CalculatorConstants.Message_ChooseAnOperator);
+            expected.Add(CalculatorConstants.OperatorAdd);
+            expected.Add(CalculatorConstants.OperatorSubtract);
+            expected.Add(CalculatorConstants.OperatorDivide);
+            expected.Add(CalculatorConstants.OperatorMultiply);            
+
+            CollectionAssert.AreEqual(expected, actual, "Operators in collection were wrong");
+            AssertSelectedOperator(model, expectedSelectedOpeator);
+        }
+
+        private void AssertSelectedOperator(CalculatorViewModel model, string expectedSelectedOpeator)
+        {
+            Assert.IsNotNull(model.Operators, "Operators collection was null");
+
+            Assert.AreEqual(expectedSelectedOpeator, model.Operator, "Operator property was wrong");
+            var match = (from temp in model.Operators where temp.Text == expectedSelectedOpeator select temp).FirstOrDefault();
+
+            Assert.IsNotNull(match, $"Could not find operator {0}", expectedSelectedOpeator);
+            Assert.IsNotNull(match.Selected, $"Operator {0} should be selected", expectedSelectedOpeator);
+        }
     }
 }

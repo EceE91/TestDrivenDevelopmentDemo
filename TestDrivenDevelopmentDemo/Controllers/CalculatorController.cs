@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestDrivenDevelopmentDemo.WebUI.Models;
 using TestDrivenDevelopmentDemo.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TestDrivenDevelopmentDemo.Api;
 
 namespace TestDrivenDevelopmentDemo.WebUI.Controllers
 {
@@ -32,6 +33,28 @@ namespace TestDrivenDevelopmentDemo.WebUI.Controllers
             operators.Add(CalculatorConstants.OperatorMultiply,CalculatorConstants.OperatorMultiply, false);
                 
             return operators;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Calculate(CalculatorViewModel model)
+        {
+            if (model == null)
+                throw new ArgumentNullException("model", "Argument cannot be null");
+
+            var operation = model.Operator;
+            if(operation == CalculatorConstants.OperatorAdd)
+            {
+                //perform add
+                model.ResultValue = new Calculator().Add(model.Value1, model.Value2);
+                model.IsResultValid = true;
+                model.Message = CalculatorConstants.Message_Success;
+                return View("Index",model);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
